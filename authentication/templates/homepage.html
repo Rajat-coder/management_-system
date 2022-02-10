@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Management System</title>
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  border: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+main {
+  padding: 1.5em;
+  margin: 0 autp;
+  max-width: 1550px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1em;
+}
+
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 40px;
+  background: snow;
+  box-shadow: 0px 0px 3px rgba(0,0,0, 0.5);
+  h1 {
+    margin: 0;
+  }
+  .btn {
+    text-decoration: none;
+    background: salmon;
+    margin: 0;
+    padding: 20px 40px;
+    color: #fff;
+    display: inline-block;
+    white-space: nowrap;
+    border-radius: 10px;
+    transition: all .5s ease;
+    &:hover {
+      background: black;
+    }
+  }
+}
+
+
+p {
+  text-align: left;
+}
+
+	</style>
+</head>
+<body>
+    <br>
+    <a href="{% url 'authentication:associate' %}" target="_blank" style="padding:10px 20px;margin-left: 20px; background:#00c; color:white; border-radius:6px;  text-decoration: none ;">Add Associate</a>
+    <br>
+    <br>
+
+    <form  method="GET" action="" style="margin-left: 20px;">
+      <input style="width: 220px;" id="form1" class="form-control" type="search" name="search" placeholder="Search By Associate Name">
+      <button type="submit" class="btn btn-outline-primary btn-icon-text" >
+      <i class="ti-file btn-icon-prepend"></i>
+      Search
+    </button>
+    </form>
+  <main>
+      {% for i in obj %}
+    <article>
+      <h1>{{i.name}}</h1>
+      <p><b>Phone : </b>{{i.phone}}</p>
+      <p><b>Address : </b>{{i.address}}</p>
+      <p><b>Specialization</b></p>
+      {% for a in i.specialization.all %}
+      <li>{{a}}</li>
+      {% endfor %}
+      <br>
+      <a href="{% url 'authentication:update_associate' i.id %}" class="btn">Update</a>
+      <a href="{% url 'authentication:delete_associate' i.id %}" class="btn">Delete</a>
+    </article>
+    {% endfor %}
+  </main>
+</body>
+</html>
